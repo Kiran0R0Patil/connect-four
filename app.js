@@ -64,10 +64,26 @@ document.addEventListener('DOMContentLoaded', () =>
 
     function checkBoard(){
         for(let j=0; j<winnerArray.length;j++){
-            const check1 = squares[winnerArray[i][0]]
-            const check2 = squares[winnerArray[i][1]]
-            const check3 = squares[winnerArray[i][2]]
-            const check4 = squares[winnerArray[i][3]]
+            const check1 = squares[winnerArray[j][0]]
+            const check2 = squares[winnerArray[j][1]]
+            const check3 = squares[winnerArray[j][2]]
+            const check4 = squares[winnerArray[j][3]]
+            // check those squares to see if all have player 1
+            if(check1.classList.contains('player1') &&
+            check2.classList.contains('player1') &&
+            check3.classList.contains('player1') &&
+            check4.classList.contains('player1') 
+            ){
+                resultDisplay.innerHTML = 'Player One wins!!'
+            }
+            // check those squares to see if all have player 2
+            else if(check1.classList.contains('player2') &&
+            check2.classList.contains('player2') &&
+            check3.classList.contains('player2') &&
+            check4.classList.contains('player2') 
+            ){
+                resultDisplay.innerHTML = 'Player Two wins!!'
+            }
         }
     }
 
@@ -76,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () =>
             
         squares[i].onclick = () => {
             //if the square below your current square is taken, you can go on top of it
-            if(squares[i+7].classList.contains('taken')){
+            if(squares[i+7].classList.contains('taken') && !squares[i].classList.contains('taken')){
                 if(currentPlayer == 1){
                     squares[i].classList.add('taken')
                     squares[i].classList.add('player1')
@@ -90,8 +106,11 @@ document.addEventListener('DOMContentLoaded', () =>
                     displayCurrentPlayer.innerHTML = currentPlayer
                 }
             }
-            else {alert("Can't go here!")}
+            else {
+                alert("Can't go here!")
+            }
             checkBoard()
         }  //end of .onclick
     }   // end of for loop
+    
 })  //end of eventListener
